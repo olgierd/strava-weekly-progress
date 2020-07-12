@@ -8,7 +8,7 @@ import os
 # GLOBAL SETTINGS
 token_file = 'strava_tokens.json'
 secret_file = 'secrets.json'
-auth_url = 'https://www.strava.com/api/v3/oauth/token',
+auth_url = 'https://www.strava.com/api/v3/oauth/token'
 
 
 def get_token(secrets):
@@ -58,10 +58,15 @@ def get_my_activities(token):
     # get start of week
     sow = pendulum.now().start_of('week')
 
+    total_meters = 0
+
     # list activities from this week only
     for x in activities:
         if pendulum.parse(x['start_date']) > sow:
             print(f"{x['start_date']} {x['distance']} {x['type']}")
+            total_meters = total_meters + x['distance']
+
+    print(f"Total: {total_meters}")
 
 
 with open(secret_file) as s_file:
@@ -78,7 +83,7 @@ with open(token_file) as check:
 # if it expired - get and load a new one
 if pendulum.from_timestamp(token['expires_at']) < pendulum.now():
     print("Token expired!")
-    refresh_token()
+    refresh_token(secrets, token)
     with open('strava_tokens.json') as check:
         token = json.load(check)
 
