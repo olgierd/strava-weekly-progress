@@ -1,4 +1,4 @@
-# Your last week on Strava in Python3
+# Strava Weekly Progress in Python3
 
 It is a simple `python3` script to fetch a list of your recent activities from your Strava account using API. I'm planning to use it with some kind of microcontroller, to show my progress in a weekly training plan.
 
@@ -16,4 +16,4 @@ Save the `code` parameter for later.
 
 Copy `secrets.json_sample` file to `secrets.json` and modify it. `client_id` and `client_secret` are displayed on API application webpage, `code` is the one you obtained from URL above.
 
-Now, just run `./strava.py` and it should list all of your activities form the last week. Feel free to use the data in whatever way you like.
+Now, just run `./swp.py` and it should list all of your activities form the last week. Feel free to use the data in whatever way you like.
