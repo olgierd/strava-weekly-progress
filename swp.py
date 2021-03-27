@@ -58,15 +58,26 @@ def get_my_activities(token):
     # get start of week
     sow = pendulum.now().start_of('week')
 
-    total_meters = 0
+    total_km = 0
+    total_mtime = 0
 
     # list activities from this week only
-    for x in activities:
-        if pendulum.parse(x['start_date']) > sow:
-            print(f"{x['start_date']} {x['distance']} {x['type']}")
-            total_meters = total_meters + x['distance']
+    for day in range(6):
+        day_act = [a for a in activities if
+                   pendulum.parse(a['start_date']) > sow.add(days=day) and
+                   pendulum.parse(a['start_date']) < sow.add(days=day+1)]
 
-    print(f"Total: {total_meters}")
+        day_name = sow.add(days=day).format('ddd DD/MM')
+
+        day_mtime = round(sum([int(act['moving_time'])/60 for act in day_act]))
+        day_km = round(sum([int(act['distance'])/1000 for act in day_act]), 1)
+        print(f"{day_name:9} → {day_mtime:3} min → {day_km:5} km")
+
+        total_mtime += day_mtime
+        total_km += day_km
+
+    print('-' * 30)
+    print(f"{'TOTAL':^9} → {total_mtime:>3} min → {total_km:>5} km")
 
 
 with open(secret_file) as s_file:
