@@ -71,13 +71,14 @@ def get_my_activities(token):
 
         day_mtime = round(sum([int(act['moving_time'])/60 for act in day_act]))
         day_km = round(sum([int(act['distance'])/1000 for act in day_act]), 1)
-        print(f"{day_name:9} → {day_mtime:3} min → {day_km:5} km")
+        print(f"{day_name:9} → {day_mtime:3} min → {day_km:5} km ", end='')
+        print('\x1b[0;32;40m' + '*'*int(round(day_km)) + '\x1b[0m')
 
         total_mtime += day_mtime
         total_km += day_km
 
     print('-' * 30)
-    print(f"{'TOTAL':^9} → {total_mtime:>3} min → {total_km:>5} km")
+    print(f"{'TOTAL':^9} → {total_mtime:>3} min → \x1b[0;31;40m{total_km:>5} km\x1b[0m")
 
 
 with open(secret_file) as s_file:
