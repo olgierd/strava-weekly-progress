@@ -62,7 +62,7 @@ def get_my_activities(token):
     total_mtime = 0
 
     # list activities from this week only
-    for day in range(6):
+    for day in range(7):
         day_act = [a for a in activities if
                    pendulum.parse(a['start_date']) > sow.add(days=day) and
                    pendulum.parse(a['start_date']) < sow.add(days=day+1)]
